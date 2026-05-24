@@ -55,21 +55,6 @@
       gap: 0.75rem;
     }
 
-    .logo-mark {
-      width: 80px;
-      height: 80px;
-      border-radius: 8px;
-      background:
-        radial-gradient(circle at 25% 20%, #fffdf7 0, #f3d7a0 35%, #6c8b4f 70%, #3b4b2a 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-weight: 700;
-      font-size: 1.1rem;
-      box-shadow: 0 10px 26px rgba(0,0,0,0.18);
-    }
-
     .logo-text {
       display: flex;
       flex-direction: column;
@@ -109,6 +94,7 @@
       align-items: center;
       gap: 0.5rem;
     }
+
 
     .btn-primary {
       border-radius: var(--radius-pill);
@@ -388,7 +374,7 @@ header.scrolled .logo-text span   { color: #1A2F1A !important; }
 }
 @media (max-width: 768px) {
   .logo-mark,
-  .logo-mark img { width: 50px !important; height: 50px !important; }
+  .logo-mark img { width: 40px !important; height: 40px !important; }
 }
 
 /* Buttons */
@@ -436,6 +422,18 @@ header.scrolled .lang-icon-btn svg ellipse { stroke: #1A2F1A !important; }
   transition: color 0.2s;
 }
 .mobile-nav-link:hover { color: #D4AF37 !important; }
+@media (max-width: 768px) {
+
+  /* מגדיל רווח בין הלוגו לטקסט */
+  .nav-left {
+    gap: 10px;
+  }
+
+  /* מסתיר את הקישורים במובייל */
+  .nav-links {
+    display: none;
+  }
+}
 
 /* ── HERO ─────────────────────────────────── */
 main { padding-top: 0 !important; }
