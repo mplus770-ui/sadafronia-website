@@ -372,10 +372,6 @@ header.scrolled .logo-text span   { color: #1A2F1A !important; }
   object-fit: cover !important;
   display: block;
 }
-@media (max-width: 768px) {
-  .logo-mark,
-  .logo-mark img { width: 40px !important; height: 40px !important; }
-}
 
 /* Buttons */
 .btn-primary {
@@ -423,6 +419,11 @@ header.scrolled .lang-icon-btn svg ellipse { stroke: #1A2F1A !important; }
 }
 .mobile-nav-link:hover { color: #D4AF37 !important; }
 @media (max-width: 768px) {
+
+  @media (max-width: 768px) {
+  .logo-mark,
+  .logo-mark img { width: 40px !important; height: 40px !important; }
+}
 
   /* מגדיל רווח בין הלוגו לטקסט */
   .nav-left {
