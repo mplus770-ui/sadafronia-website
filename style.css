@@ -419,42 +419,6 @@ header.scrolled .lang-icon-btn svg ellipse { stroke: #1A2F1A !important; }
 }
 .mobile-nav-link:hover { color: #D4AF37 !important; }
 
-@media (max-width: 768px) {
-
-  /* שומר על מבנה שורה אחת */
-  .nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: nowrap;
-    width: 100%;
-  }
-
-  /* מוודא שהלוגו + טקסט לא נשברים */
-  .nav-left {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: nowrap;
-    white-space: nowrap; /* ← זה מה שהיה חסר */
-  }
-
-  /* הלוגו קטן ולא דוחף */
-  .logo-mark,
-  .logo-mark img {
-    width: 40px !important;
-    height: 40px !important;
-    flex-shrink: 0;
-  }
-
-  /* מסתיר לינקים במובייל */
-  .nav-links {
-    display: none !important;
-  }
-}
-
 /* ── HERO ─────────────────────────────────── */
 main { padding-top: 0 !important; }
 
@@ -1298,6 +1262,17 @@ section,
         height: 92px !important;
       }
 
+      /*
+.logo-mark img {
+  width: 92px !important;
+  height: 92px !important;
+}
+.logo-mark {
+  width: 92px !important;
+  height: 92px !important;
+}
+*/
+
       /* 4. Hamburger visible, nav-links hidden by default */
       .hamburger-btn {
         display: flex !important;
@@ -1347,6 +1322,42 @@ section,
       .nav-cta .btn-outline {
         display: none !important;
       }
+
+      /* ===== FINAL MOBILE HEADER FIX ===== */
+@media (max-width: 768px) {
+
+  /* מבנה ההדר */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+
+  /* לוגו + טקסט בשורה אחת */
+  .nav-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+
+  /* לוגו קטן */
+  .logo-mark,
+  .logo-mark img {
+    width: 40px !important;
+    height: 40px !important;
+    flex-shrink: 0;
+  }
+
+  /* מסתיר לינקים */
+  .nav-links {
+    display: none !important;
+  }
+}
 
       /* 5. Hero background on mobile */
       .hero-layer-bg {
