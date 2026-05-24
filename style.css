@@ -418,19 +418,20 @@ header.scrolled .lang-icon-btn svg ellipse { stroke: #1A2F1A !important; }
   transition: color 0.2s;
 }
 .mobile-nav-link:hover { color: #D4AF37 !important; }
+
+/* ✔ זה ה‑media query הנכון */
 @media (max-width: 768px) {
 
-  @media (max-width: 768px) {
   .logo-mark,
-  .logo-mark img { width: 40px !important; height: 40px !important; }
-}
+  .logo-mark img {
+    width: 40px !important;
+    height: 40px !important;
+  }
 
-  /* מגדיל רווח בין הלוגו לטקסט */
   .nav-left {
     gap: 10px;
   }
 
-  /* מסתיר את הקישורים במובייל */
   .nav-links {
     display: none;
   }
