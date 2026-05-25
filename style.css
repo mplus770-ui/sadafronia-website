@@ -1631,9 +1631,9 @@ section,
     transition: transform 0.3s ease !important;
   }
 
-  .mobile-nav-drawer.open {
-    transform: translateX(0) !important;
-  }
+  .mobile-nav-overlay {
+    display: none !important;
+}
 
   /* רקע כהה מאחורי התפריט */
   .mobile-nav-overlay {
