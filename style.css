@@ -1631,20 +1631,6 @@ section,
     transition: transform 0.3s ease !important;
   }
 
-  /* overlay סגור כברירת מחדל */
-.mobile-nav-overlay {
-    display: none !important;
-}
-
-/* overlay פתוח רק כשהתפריט פתוח */
-.mobile-nav-overlay.open {
-    display: block !important;
-    position: fixed !important;
-    inset: 0 !important;
-    background: rgba(0,0,0,0.45) !important;
-    z-index: 99998 !important;
-}
-
   /* קישורי תפריט */
   .mobile-nav-link {
     color: #F5F0E6 !important;
@@ -1652,23 +1638,6 @@ section,
     padding: 1rem 0 !important;
     border-bottom: 1px solid rgba(212,175,55,0.18) !important;
   }
-}
-
-/* ===== כיבוי מלא של overlay + drawer ===== */
-#mobile-nav-overlay,
-.mobile-nav-overlay,
-.mobile-nav-overlay.open {
-  display: none !important;
-  pointer-events: none !important;
-  opacity: 0 !important;
-}
-
-#mobile-nav-drawer,
-.mobile-nav-drawer,
-.mobile-nav-drawer.open {
-  display: none !important;
-  pointer-events: none !important;
-  opacity: 0 !important;
 }
 
     
