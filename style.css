@@ -444,7 +444,7 @@ main { padding-top: 0 !important; }
   position: absolute !important;
   inset: 0 !important;
   background-size: cover !important;
-  background-position: center center !important;
+  background-position: center 30% !important;
   background-repeat: no-repeat !important;
   transform: none !important;
   animation: none !important;
@@ -1252,27 +1252,6 @@ section,
         font-size: 0.7rem !important;
       }
 
-      /* 3. Logo 10-15% larger on mobile */
-      .logo-mark img {
-        width: 92px !important;
-        height: 92px !important;
-      }
-      .logo-mark {
-        width: 92px !important;
-        height: 92px !important;
-      }
-
-      /*
-.logo-mark img {
-  width: 92px !important;
-  height: 92px !important;
-}
-.logo-mark {
-  width: 92px !important;
-  height: 92px !important;
-}
-*/
-
       /* 4. Hamburger visible, nav-links hidden by default */
       .hamburger-btn {
         display: flex !important;
@@ -1323,45 +1302,8 @@ section,
         display: none !important;
       }
 
-      /* ===== FINAL MOBILE HEADER FIX ===== */
-@media (max-width: 768px) {
-
-  /* מבנה ההדר */
-  .nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: nowrap;
-    width: 100%;
-  }
-
-  /* לוגו + טקסט בשורה אחת */
-  .nav-left {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: nowrap;
-    white-space: nowrap;
-  }
-
-  /* לוגו קטן */
-  .logo-mark,
-  .logo-mark img {
-    width: 40px !important;
-    height: 40px !important;
-    flex-shrink: 0;
-  }
-
-  /* מסתיר לינקים */
-  .nav-links {
-    display: none !important;
-  }
-}
-
       /* 5. Hero background on mobile */
       .hero-layer-bg {
-        background-position: right center !important;
         background-size: auto 100% !important;
         background-repeat: no-repeat !important;
         }
@@ -1498,41 +1440,70 @@ section,
       .logo-mark img { width:87px!important; height:87px!important; }
     }
 
-    /* 5 – header mobile 2-row layout */
-    @media (max-width:768px){
-      header { position:sticky!important; top:0!important; z-index:9998!important; }
-      .nav {
-        flex-wrap:wrap!important;
-        padding:0.4rem 0.85rem!important;
-        gap:0.15rem!important;
-        align-items:center!important;
-      }
-      .nav-left {
-        flex:0 0 100%!important;
-        order:1!important;
-        display:flex!important;
-        flex-direction:row-reverse!important;
-        align-items:center!important;
-        justify-content:flex-end!important;
-        gap:0.5rem!important;
-      }
-      .nav-cta {
-        flex:0 0 100%!important;
-        order:2!important;
-        display:flex!important;
-        flex-direction:row!important;
-        align-items:center!important;
-        justify-content:flex-end!important;
-        gap:0.35rem!important;
-        flex-wrap:nowrap!important;
-      }
-      .nav-cta .btn-outline { display:none!important; }
-      .nav-cta .btn-primary { order:1; font-size:0.74rem!important; padding:0.32rem 0.65rem!important; }
-      .lang-icon-btn        { order:2; padding:3px 4px!important; }
-      .lang-icon-btn svg    { width:16px!important; height:16px!important; }
-      .hamburger-btn        { order:3; }
-      .hamburger-btn span   { width:20px!important; }
-    }
+    /* 5 – header mobile clean layout */
+@media (max-width:768px){
+  header { 
+    position: sticky !important; 
+    top: 0 !important; 
+    z-index: 9998 !important; 
+  }
+
+  .nav {
+    padding: 0.4rem 0.85rem !important;
+    gap: 0.15rem !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important; /* מחזיר שורה אחת */
+    justify-content: space-between !important;
+  }
+
+  .nav-left {
+    display: flex !important;
+    flex-direction: row !important; /* מחזיר כיוון רגיל */
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 0.5rem !important;
+    flex: 0 0 auto !important; /* לא תופס שורה שלמה */
+    order: unset !important;
+  }
+
+  .nav-cta {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 0.35rem !important;
+    flex-wrap: nowrap !important;
+    flex: 0 0 auto !important; /* לא תופס שורה שלמה */
+    order: unset !important;
+  }
+
+  .nav-cta .btn-outline { 
+    display: none !important; 
+  }
+
+  .nav-cta .btn-primary { 
+    font-size: 0.74rem !important; 
+    padding: 0.32rem 0.65rem !important; 
+  }
+
+  .lang-icon-btn { 
+    padding: 3px 4px !important; 
+  }
+
+  .lang-icon-btn svg { 
+    width: 16px !important; 
+    height: 16px !important; 
+  }
+
+  .hamburger-btn span { 
+    width: 20px !important; 
+  }
+
+  /* גודל לוגו למובייל */
+  .logo-mark img {
+    width: 40px !important;
+  }
+}
 
     /* 6 – hamburger off-canvas, header always visible */
     @media (max-width:768px){
@@ -1570,5 +1541,60 @@ section,
     }
     .whatsapp-fab { animation:wa-pulse 2.6s ease-out infinite; }
     .whatsapp-fab svg path { fill:#fff!important; }
+
+    @media (max-width: 768px) {
+
+  /* מבנה ההדר */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+
+  /* לוגו + טקסט בשורה אחת */
+  .nav-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+
+  /* לוגו קטן */
+  .logo-mark,
+  .logo-mark img {
+    width: 40px !important;
+    height: 40px !important;
+    flex-shrink: 0;
+  }
+
+  /* מסתיר לינקים */
+  .nav-links {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+  }
+
+  .nav-left,
+  .nav-cta {
+    flex: 0 0 auto !important;
+    order: unset !important;
+    flex-direction: row !important;
+  }
+
+  .logo-mark img {
+    width: 40px !important;
+  }
+}
+
+
 
     
