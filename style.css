@@ -201,13 +201,6 @@
       animation: leavesDrift 26s linear infinite alternate;
     }
 
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: none;
-      mix-blend-mode: normal;
-    }
-
     .hero-particles {
       position: absolute;
       inset: 0;
@@ -295,13 +288,6 @@
       height: 7px;
       border-radius: 50%;
       background: linear-gradient(135deg, #f5d7a1, #f0b35a);
-    }
-
-    .hero-cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-top: 1.25rem;
     }
 
     .hero-meta {
@@ -550,13 +536,7 @@ main { padding-top: 0 !important; }
   cursor: pointer !important;
 }
 .hero-cta-row .btn-outline {
-  background: transparent !important;
-  border: 1.5px solid rgba(245,240,230,0.55) !important;
-  color: #F5F0E6 !important;
-  font-size: 0.92rem !important;
-  padding: 0.78rem 2.2rem !important;
-  border-radius: 3px !important;
-  cursor: pointer !important;
+  display: none !important;
 }
 
 /* Meta strip */
@@ -1263,22 +1243,6 @@ section,
         /* keep phone button, hide text if needed */
       }
 
-      /* Mobile drawer open state */
-      .mobile-nav-drawer.open {
-        display: flex !important;
-        flex-direction: column;
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: min(85vw, 320px);
-        height: 100vh;
-        background: #fff;
-        z-index: 9999;
-        padding: 4rem 1.5rem 2rem;
-        gap: 1.2rem;
-        box-shadow: -4px 0 20px rgba(0,0,0,0.15);
-        overflow-y: auto;
-      }
       .mobile-nav-drawer a {
         font-size: 1.05rem;
         color: var(--text-dark, #2c3e1a);
@@ -1326,14 +1290,6 @@ section,
 
     /* ===== STRICT FIXES ===== */
 
-    /* 1 – Hero title desktop/mobile */
-    .ht-d { display: block; }
-    .ht-m { display: none; }
-    @media (max-width: 768px) {
-      .ht-d { display: none; }
-      .ht-m { display: block; }
-    }
-
     /* 3 – Logo -11% (80→71px) */
     .logo-mark {
       width: 71px !important;
@@ -1358,49 +1314,6 @@ section,
     .lang-icon-btn { flex-shrink: 0; }
     .hamburger-btn { flex-shrink: 0; }
     .lang-icon-btn svg { width: 19px; height: 19px; }
-
-    /* 5 – Mobile drawer: off-canvas below header, header stays visible */
-    @media (max-width: 768px) {
-      .mobile-nav-drawer {
-        position: fixed;
-        top: 0;
-        right: -280px;
-        width: 260px;
-        height: 100vh;
-        background: #fdf9f3;
-        z-index: 49;
-        padding-top: 5rem;
-        box-shadow: -4px 0 20px rgba(0,0,0,0.12);
-        transition: right 0.28s ease;
-        display: flex !important;
-        flex-direction: column;
-        gap: 0;
-      }
-      .mobile-nav-drawer.open { right: 0; }
-      .mobile-nav-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.35);
-        z-index: 48;
-        display: none;
-      }
-      .mobile-nav-overlay.open { display: block; }
-    }
-
-    /* 6 – WhatsApp FAB: green + pulse */
-    .whatsapp-fab {
-      background: #25d366 !important;
-      border-radius: 50% !important;
-    }
-    @keyframes wa-pulse {
-      0%   { box-shadow: 0 0 0 0    rgba(37,211,102,0.50); }
-      65%  { box-shadow: 0 0 0 14px rgba(37,211,102,0.06); }
-      100% { box-shadow: 0 0 0 0    rgba(37,211,102,0); }
-    }
-    .whatsapp-fab { animation: wa-pulse 2.6s ease-out infinite; }
-
-    /* 6 – WhatsApp SVG fill green if set to white-on-dark */
-    .whatsapp-fab svg path { fill: #fff !important; }
 
     /* ===== END STRICT FIXES ===== */
 
@@ -1435,10 +1348,6 @@ section,
     /* 4 – logo: desktop 71px, mobile 87px */
     .logo-mark,
     .logo-mark img { width:71px!important; height:71px!important; }
-    @media (max-width:768px){
-      .logo-mark,
-      .logo-mark img { width:87px!important; height:87px!important; }
-    }
 
     /* 5 – header mobile clean layout */
 @media (max-width:768px){
@@ -1600,8 +1509,8 @@ section,
     position: sticky !important; 
     top: 0 !important; 
     z-index: 9998 !important; 
-    padding: 0.8rem 0 !important;
-    min-height: 64px !important;
+    padding: 1rem 0 !important;
+    min-height: 72px !important;
   }
 
   .nav {
@@ -1637,6 +1546,10 @@ section,
     font-size: 1rem !important;
     padding: 1rem 0 !important;
     border-bottom: 1px solid rgba(212,175,55,0.18) !important;
+  }
+
+  .mobile-nav-drawer.open {
+    transform: translateX(0) !important;
   }
 }
 
