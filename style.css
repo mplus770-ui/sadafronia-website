@@ -1595,6 +1595,63 @@ section,
   }
 }
 
+@media (max-width:768px){
+  header { 
+    position: sticky !important; 
+    top: 0 !important; 
+    z-index: 9998 !important; 
+    padding: 0.8rem 0 !important;
+    min-height: 64px !important;
+  }
+
+  .nav {
+    padding: 0 1rem !important;
+  }
+}
+
+/* MOBILE NAV DRAWER FIX */
+@media (max-width:768px){
+
+  .mobile-nav-drawer {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 280px !important;
+    height: 100vh !important;
+    background: #1A2F1A !important;
+    z-index: 99999 !important;
+    padding: 5rem 1.5rem 2rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.2rem !important;
+    overflow-y: auto !important;
+
+    /* אנימציית פתיחה */
+    transform: translateX(100%) !important;
+    transition: transform 0.3s ease !important;
+  }
+
+  .mobile-nav-drawer.open {
+    transform: translateX(0) !important;
+  }
+
+  /* רקע כהה מאחורי התפריט */
+  .mobile-nav-overlay {
+    display: block !important;
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(0,0,0,0.45) !important;
+    z-index: 99998 !important;
+  }
+
+  /* קישורי תפריט */
+  .mobile-nav-link {
+    color: #F5F0E6 !important;
+    font-size: 1rem !important;
+    padding: 1rem 0 !important;
+    border-bottom: 1px solid rgba(212,175,55,0.18) !important;
+  }
+}
 
 
     
