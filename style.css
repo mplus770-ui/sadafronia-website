@@ -1704,3 +1704,9 @@ section,
 #course-typing {
   white-space: pre-line;
 }
+@media (max-width: 600px) {
+  .hero-subtitle.hero-course-line #course-typing {
+    font-size: 0.95rem !important; /* תקטין או תגדיל לפי מה שנראה טוב */
+    line-height: 1.35; /* שיהיה קריא ונעים */
+  }
+}
