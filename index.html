@@ -95,10 +95,12 @@
       <span class="ht-m">שלושים שנות<br>ידע שמיישר<br>תהליכים. ניסיון<br>שמייצר איכות.</span>
     </h1>
 
-    <p class="hero-subtitle">
-      ייעוץ מקצועי ליקבים, בית ספר לייננות ומגזין יין מקצועי –<br>
-      מעל 30 שנות ניסיון בשטח.
-    </p>
+<div class="hero-subtitle hero-course-line">
+  <span id="course-typing"></span>
+</div>
+
+<span id="start-container"></span>
+
 
     <!-- ארבעת העוגנים -->
     <div class="hero-badges">
@@ -109,9 +111,9 @@
     </div>
 
     <div class="hero-cta-row">
-      <button class="btn-primary" onclick="scrollToSection('contact')">צור קשר עכשיו</button>
-      <button class="btn-outline" onclick="scrollToSection('services')">לשירותים שלנו</button>
-    </div>
+  <button class="btn-outline" onclick="scrollToSection('services')">לשירותים שלנו</button>
+  <button class="btn-primary" onclick="scrollToSection('contact')">צור קשר עכשיו</button>
+</div>
 
     <!-- ארבע ההוכחות החדשות -->
     <div class="hero-meta">
@@ -611,6 +613,36 @@
 </script>
 
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+const text = "הקורס הדיגיטלי המקיף ביותר בישראל\nהדרך שלך להבין יין באמת.";
+let i = 0;
+
+function typeWriter() {
+  const el = document.getElementById("course-typing");
+
+  if (i < text.length) {
+    el.innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, 55);
+  } else {
+    document.getElementById("start-container").innerHTML =
+      '<a href="#register" class="start-link">' +
+      '<span class="hand-icon">👈🏻</span>' +
+      '<span class="start-text">הרשמה לקורס</span>' +
+      '</a>';
+
+    setTimeout(() => {
+      el.innerHTML = "";
+      document.getElementById("start-container").innerHTML = "";
+      i = 0;
+      typeWriter();
+    }, 10000);
+  }
+}
+
+window.onload = typeWriter;
+</script>
 
 </body>
 </html>

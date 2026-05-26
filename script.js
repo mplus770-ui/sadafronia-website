@@ -119,3 +119,4 @@ function googleTranslateElementInit(){
     })
     .catch(function(){});
 })();
+

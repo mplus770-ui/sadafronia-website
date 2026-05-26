@@ -1,0 +1,169 @@
+[1mdiff --git a/style.css b/style.css[m
+[1mindex a23bb42..b47057b 100644[m
+[1m--- a/style.css[m
+[1m+++ b/style.css[m
+[36m@@ -201,13 +201,6 @@[m
+       animation: leavesDrift 26s linear infinite alternate;[m
+     }[m
+ [m
+[31m-    .hero-overlay {[m
+[31m-      position: absolute;[m
+[31m-      inset: 0;[m
+[31m-      background: none;[m
+[31m-      mix-blend-mode: normal;[m
+[31m-    }[m
+[31m-[m
+     .hero-particles {[m
+       position: absolute;[m
+       inset: 0;[m
+[36m@@ -297,13 +290,6 @@[m
+       background: linear-gradient(135deg, #f5d7a1, #f0b35a);[m
+     }[m
+ [m
+[31m-    .hero-cta-row {[m
+[31m-      display: flex;[m
+[31m-      flex-wrap: wrap;[m
+[31m-      gap: 0.75rem;[m
+[31m-      margin-top: 1.25rem;[m
+[31m-    }[m
+[31m-[m
+     .hero-meta {[m
+       font-size: 0.8rem;[m
+       color: #5b6147;[m
+[36m@@ -550,13 +536,7 @@[m [mmain { padding-top: 0 !important; }[m
+   cursor: pointer !important;[m
+ }[m
+ .hero-cta-row .btn-outline {[m
+[31m-  background: transparent !important;[m
+[31m-  border: 1.5px solid rgba(245,240,230,0.55) !important;[m
+[31m-  color: #F5F0E6 !important;[m
+[31m-  font-size: 0.92rem !important;[m
+[31m-  padding: 0.78rem 2.2rem !important;[m
+[31m-  border-radius: 3px !important;[m
+[31m-  cursor: pointer !important;[m
+[32m+[m[32m  display: none !important;[m
+ }[m
+ [m
+ /* Meta strip */[m
+[36m@@ -1263,22 +1243,6 @@[m [msection,[m
+         /* keep phone button, hide text if needed */[m
+       }[m
+ [m
+[31m-      /* Mobile drawer open state */[m
+[31m-      .mobile-nav-drawer.open {[m
+[31m-        display: flex !important;[m
+[31m-        flex-direction: column;[m
+[31m-        position: fixed;[m
+[31m-        top: 0;[m
+[31m-        right: 0;[m
+[31m-        width: min(85vw, 320px);[m
+[31m-        height: 100vh;[m
+[31m-        background: #fff;[m
+[31m-        z-index: 9999;[m
+[31m-        padding: 4rem 1.5rem 2rem;[m
+[31m-        gap: 1.2rem;[m
+[31m-        box-shadow: -4px 0 20px rgba(0,0,0,0.15);[m
+[31m-        overflow-y: auto;[m
+[31m-      }[m
+       .mobile-nav-drawer a {[m
+         font-size: 1.05rem;[m
+         color: var(--text-dark, #2c3e1a);[m
+[36m@@ -1326,14 +1290,6 @@[m [msection,[m
+ [m
+     /* ===== STRICT FIXES ===== */[m
+ [m
+[31m-    /* 1 – Hero title desktop/mobile */[m
+[31m-    .ht-d { display: block; }[m
+[31m-    .ht-m { display: none; }[m
+[31m-    @media (max-width: 768px) {[m
+[31m-      .ht-d { display: none; }[m
+[31m-      .ht-m { display: block; }[m
+[31m-    }[m
+[31m-[m
+     /* 3 – Logo -11% (80→71px) */[m
+     .logo-mark {[m
+       width: 71px !important;[m
+[36m@@ -1359,49 +1315,6 @@[m [msection,[m
+     .hamburger-btn { flex-shrink: 0; }[m
+     .lang-icon-btn svg { width: 19px; height: 19px; }[m
+ [m
+[31m-    /* 5 – Mobile drawer: off-canvas below header, header stays visible */[m
+[31m-    @media (max-width: 768px) {[m
+[31m-      .mobile-nav-drawer {[m
+[31m-        position: fixed;[m
+[31m-        top: 0;[m
+[31m-        right: -280px;[m
+[31m-        width: 260px;[m
+[31m-        height: 100vh;[m
+[31m-        background: #fdf9f3;[m
+[31m-        z-index: 49;[m
+[31m-        padding-top: 5rem;[m
+[31m-        box-shadow: -4px 0 20px rgba(0,0,0,0.12);[m
+[31m-        transition: right 0.28s ease;[m
+[31m-        display: flex !important;[m
+[31m-        flex-direction: column;[m
+[31m-        gap: 0;[m
+[31m-      }[m
+[31m-      .mobile-nav-drawer.open { right: 0; }[m
+[31m-      .mobile-nav-overlay {[m
+[31m-        position: fixed;[m
+[31m-        inset: 0;[m
+[31m-        background: rgba(0,0,0,0.35);[m
+[31m-        z-index: 48;[m
+[31m-        display: none;[m
+[31m-      }[m
+[31m-      .mobile-nav-overlay.open { display: block; }[m
+[31m-    }[m
+[31m-[m
+[31m-    /* 6 – WhatsApp FAB: green + pulse */[m
+[31m-    .whatsapp-fab {[m
+[31m-      background: #25d366 !important;[m
+[31m-      border-radius: 50% !important;[m
+[31m-    }[m
+[31m-    @keyframes wa-pulse {[m
+[31m-      0%   { box-shadow: 0 0 0 0    rgba(37,211,102,0.50); }[m
+[31m-      65%  { box-shadow: 0 0 0 14px rgba(37,211,102,0.06); }[m
+[31m-      100% { box-shadow: 0 0 0 0    rgba(37,211,102,0); }[m
+[31m-    }[m
+[31m-    .whatsapp-fab { animation: wa-pulse 2.6s ease-out infinite; }[m
+[31m-[m
+[31m-    /* 6 – WhatsApp SVG fill green if set to white-on-dark */[m
+[31m-    .whatsapp-fab svg path { fill: #fff !important; }[m
+[31m-[m
+     /* ===== END STRICT FIXES ===== */[m
+ [m
+     /* ===== STRICT FIXES v7 ===== */[m
+[36m@@ -1435,10 +1348,6 @@[m [msection,[m
+     /* 4 – logo: desktop 71px, mobile 87px */[m
+     .logo-mark,[m
+     .logo-mark img { width:71px!important; height:71px!important; }[m
+[31m-    @media (max-width:768px){[m
+[31m-      .logo-mark,[m
+[31m-      .logo-mark img { width:87px!important; height:87px!important; }[m
+[31m-    }[m
+ [m
+     /* 5 – header mobile clean layout */[m
+ @media (max-width:768px){[m
+[36m@@ -1600,8 +1509,8 @@[m [msection,[m
+     position: sticky !important; [m
+     top: 0 !important; [m
+     z-index: 9998 !important; [m
+[31m-    padding: 0.8rem 0 !important;[m
+[31m-    min-height: 64px !important;[m
+[32m+[m[32m    padding: 1rem 0 !important;[m
+[32m+[m[32m    min-height: 72px !important;[m
+   }[m
+ [m
+   .nav {[m
+[36m@@ -1638,6 +1547,10 @@[m [msection,[m
+     padding: 1rem 0 !important;[m
+     border-bottom: 1px solid rgba(212,175,55,0.18) !important;[m
+   }[m
+[32m+[m
+[32m+[m[32m  .mobile-nav-drawer.open {[m
+[32m+[m[32m    transform: translateX(0) !important;[m
+[32m+[m[32m  }[m
+ }[m
+ [m
+     [m
+\ No newline at end of file[m
