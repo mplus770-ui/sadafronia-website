@@ -1710,3 +1710,13 @@ section,
     line-height: 1.35; /* שיהיה קריא ונעים */
   }
 }
+@media (max-width: 600px) {
+  .hero-cta-row .btn-primary {
+    display: none !important;
+  }
+}
+@media (max-width: 600px) {
+  .hero-badges {
+    margin-top: 25px; /* תגדיל או תקטין לפי מה שנראה טוב */
+  }
+}
