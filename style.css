@@ -1720,3 +1720,18 @@ section,
     margin-top: 25px; /* תגדיל או תקטין לפי מה שנראה טוב */
   }
 }
+@media (max-width: 600px) {
+  .logo-mark {
+    width: 75px !important;
+    height: 75px !important;
+    padding: 0 !important; /* מבטל רווחים מסביב */
+    overflow: hidden; /* מבטיח שהתמונה לא תחרוג */
+    border-radius: 50%; /* שומר על עיגול */
+  }
+
+  .logo-mark img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover; /* ממלא את העיגול */
+  }
+}
