@@ -1722,16 +1722,16 @@ section,
 }
 @media (max-width: 600px) {
   .logo-mark {
-    width: 75px !important;
-    height: 75px !important;
-    padding: 0 !important; /* מבטל רווחים מסביב */
-    overflow: hidden; /* מבטיח שהתמונה לא תחרוג */
-    border-radius: 50%; /* שומר על עיגול */
+    width: 68px !important;
+    height: 68px !important;
+    padding: 0 !important;
+    overflow: hidden;
+    border-radius: 50%;
   }
 
   .logo-mark img {
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover; /* ממלא את העיגול */
+    object-fit: cover;
   }
 }
