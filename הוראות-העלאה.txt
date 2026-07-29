@@ -1,0 +1,34 @@
+SADAFRONIA — החלפת האתר הקיים ב-GitHub Pages
+================================================
+
+כן — החבילה נועדה להחליף את האתר הקיים באותו Repository:
+https://github.com/mplus770-ui/sadafronia-website
+
+הכתובת תישאר:
+https://mplus770-ui.github.io/sadafronia-website/
+
+לפני ההחלפה:
+1. הורד גיבוי של האתר הישן או שמור Commit קיים ב-GitHub.
+2. חלץ את קובץ ה-ZIP במחשב.
+3. חשוב: יש להעלות את כל הקבצים שבתוך התיקייה, כך שהקובץ index.html יהיה בשורש ה-Repository.
+
+החלפה דרך אתר GitHub:
+1. פתח את ה-Repository בשם sadafronia-website.
+2. מחק את קובצי האתר הישן בלבד.
+3. העלה את כל תוכן התיקייה שחולצה, כולל:
+   - index.html
+   - יתר קובצי ה-HTML
+   - תיקיית assets
+   - הקובץ .nojekyll
+4. שמור באמצעות Commit changes.
+5. פתח Settings > Pages.
+6. ודא שהמקור הוא Deploy from a branch.
+7. ודא שהענף הוא main והתיקייה היא /(root).
+8. המתן מספר דקות ובצע רענון מלא: Ctrl+F5.
+
+חשוב:
+- אין צורך ליצור Repository חדש.
+- אין צורך לשנות את כתובת האתר.
+- אל תעלה את התיקייה SADAFRONIA-GitHub-Pages כתיקייה חיצונית אחת;
+  העלה את התוכן שלה ישירות לשורש ה-Repository.
+- אין למחוק את ה-Repository עצמו.
