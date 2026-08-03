@@ -20,6 +20,42 @@
   updateScroll();
   window.addEventListener("scroll", updateScroll, { passive: true });
 
+  const cinematicSections = [...document.querySelectorAll(".closing-cta")];
+  if (cinematicSections.length && !reduceMotion) {
+    let cinematicFrame = 0;
+    const updateCinematicSections = () => {
+      cinematicFrame = 0;
+      cinematicSections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const start = window.innerHeight * 0.9;
+        const end = window.innerHeight * 0.18;
+        const progressValue = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
+        section.style.setProperty("--cinema-progress", progressValue.toFixed(3));
+        section.style.setProperty("--cinema-image-brightness", (.78 + progressValue * .16).toFixed(3));
+        section.style.setProperty("--cinema-image-scale", (1.08 - progressValue * .035).toFixed(4));
+        section.style.setProperty("--cinema-image-shift", `${((.5 - progressValue) * 12).toFixed(2)}px`);
+        section.style.setProperty("--cinema-content-opacity", (.72 + progressValue * .28).toFixed(3));
+        section.style.setProperty("--cinema-content-shift", `${((1 - progressValue) * 34).toFixed(2)}px`);
+      });
+    };
+    const requestCinematicUpdate = () => {
+      if (cinematicFrame) return;
+      cinematicFrame = window.requestAnimationFrame(updateCinematicSections);
+    };
+    updateCinematicSections();
+    window.addEventListener("scroll", requestCinematicUpdate, { passive: true });
+    window.addEventListener("resize", requestCinematicUpdate, { passive: true });
+  } else {
+    cinematicSections.forEach((section) => {
+      section.style.setProperty("--cinema-progress", "1");
+      section.style.setProperty("--cinema-image-brightness", ".94");
+      section.style.setProperty("--cinema-image-scale", "1.045");
+      section.style.setProperty("--cinema-image-shift", "-6px");
+      section.style.setProperty("--cinema-content-opacity", "1");
+      section.style.setProperty("--cinema-content-shift", "0px");
+    });
+  }
+
   const menuButton = document.querySelector("[data-menu-button]");
   const mobileMenu = document.querySelector("[data-mobile-menu]");
   const setMenu = (open) => {
@@ -146,7 +182,7 @@
       name: "SADAFRONIA Reserve Red",
       kicker: "RESERVE · RED",
       price: 119,
-      image: "assets/images/generated/reserve-red.png",
+      image: "assets/images/generated/reserve-red.webp",
       note: "סדרת האשכול · אדום Reserve",
       description: "יין אדום מובחר מסדרת Reserve, בעל עומק, מבנה וסיומת ארוכה. סמל האשכול האדום הוא סימן ההיכר של הסדרה.",
     },
@@ -155,7 +191,7 @@
       name: "SADAFRONIA Reserve White",
       kicker: "RESERVE · WHITE",
       price: 119,
-      image: "assets/images/generated/reserve-white.png",
+      image: "assets/images/generated/reserve-white.webp",
       note: "סדרת האשכול · לבן Reserve",
       description: "יין לבן מובחר מסדרת Reserve, רענן ומדויק, עם עומק ומרקם אלגנטי. סמל האשכול הזהוב־ירוק מייחד את היין הלבן בסדרה.",
     },
@@ -164,7 +200,7 @@
       name: "SADAFRONIA Reserve Rosé",
       kicker: "RESERVE · ROSÉ",
       price: 99,
-      image: "assets/images/generated/reserve-rose.png",
+      image: "assets/images/generated/reserve-rose.webp",
       note: "סדרת האשכול · רוזה Reserve",
       description: "רוזה Reserve יבש ומעודן, בעל צבע סלמון אלגנטי, פרי אדום רענן וסיומת נקייה. סמל האשכול הוורוד משלים את זהות הסדרה.",
     },
@@ -325,10 +361,47 @@
     if (event.target === lightbox) closeLightbox();
   });
 
-  document.querySelector("[data-newsletter]")?.addEventListener("submit", (event) => {
-    event.preventDefault();
-    showToast("תודה — הפרטים נשמרו לקראת חיבור מערכת הדיוור.");
-    event.currentTarget.reset();
+  const formEndpoint = "https://formsubmit.co/ajax/sadafronia@gmail.com";
+  const submitByEmail = async (form, subject, successMessage) => {
+    const submitButton = form.querySelector('[type="submit"]');
+    const originalLabel = submitButton?.innerHTML;
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.setAttribute("aria-busy", "true");
+    }
+    try {
+      const formData = new FormData(form);
+      formData.set("_subject", subject);
+      formData.set("_template", "table");
+      formData.set("_captcha", "false");
+      formData.set("source_page", document.title);
+      const response = await fetch(formEndpoint, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      });
+      if (!response.ok) throw new Error(`Form service returned ${response.status}`);
+      form.reset();
+      showToast(successMessage);
+    } catch (error) {
+      console.error("SADAFRONIA form submission failed", error);
+      showToast("השליחה לא הושלמה. אפשר לפנות אלינו במייל: SADAFRONIA@GMAIL.COM");
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.removeAttribute("aria-busy");
+        if (originalLabel) submitButton.innerHTML = originalLabel;
+      }
+    }
+  };
+
+  document.querySelectorAll("[data-newsletter]").forEach((form) => {
+    const emailInput = form.querySelector('input[type="email"]');
+    if (emailInput) emailInput.name = "email";
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      submitByEmail(form, "הצטרפות חדשה לניוזלטר SADAFRONIA", "תודה — הצטרפתם לעדכוני SADAFRONIA.");
+    });
   });
 
   const cartDrawer = document.querySelector("[data-cart-drawer]");
@@ -439,8 +512,7 @@
       event.preventDefault();
       const formData = Object.fromEntries(new FormData(contactForm));
       localStorage.setItem("sadafronia-contact-draft", JSON.stringify({ ...formData, savedAt: new Date().toISOString() }));
-      contactForm.reset();
-      showToast("הפנייה נשמרה בדפדפן. חיבור השליחה יופעל עם מערכת הטפסים.");
+      submitByEmail(contactForm, "פנייה חדשה מאתר SADAFRONIA", "תודה — הפנייה נשלחה ונחזור אליכם בהקדם.");
     });
   }
 

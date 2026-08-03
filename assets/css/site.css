@@ -5,9 +5,12 @@
   --forest-700: #1e4d3f;
   --wine-800: #541722;
   --wine-700: #722437;
-  --gold-500: #c9a45d;
-  --gold-400: #dfc17f;
-  --gold-300: #ead5a8;
+  --gold-solid: #c8a96a;
+  --gold-700: var(--gold-solid);
+  --gold-500: var(--gold-solid);
+  --gold-400: var(--gold-solid);
+  --gold-300: var(--gold-solid);
+  --gold-metal: linear-gradient(110deg, #80632c 0%, #c8a96a 24%, #fff0bd 48%, #c8a96a 70%, #80632c 100%);
   --cream-100: #fbf8f1;
   --cream-200: #f3ede1;
   --stone-300: #dfd6c7;
@@ -132,6 +135,7 @@ button {
   border-bottom-color: rgba(223, 193, 127, 0.22);
   box-shadow: 0 18px 60px rgba(2, 15, 11, 0.22);
   backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
 .brand {
@@ -309,6 +313,7 @@ button {
   color: var(--gold-300);
   transform: translateY(-50%);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .social-rail > span {
@@ -343,6 +348,7 @@ button {
 
 .hero {
   position: relative;
+  min-height: 100vh;
   min-height: 100svh;
   overflow: hidden;
   color: var(--white);
@@ -359,12 +365,15 @@ button {
 
 .hero video {
   object-fit: cover;
+  filter: brightness(1.09) contrast(1.02) saturate(1.02);
+  -webkit-filter: brightness(1.09) contrast(1.02) saturate(1.02);
 }
 
 .hero-shade {
   background:
+    radial-gradient(ellipse at 78% 45%, rgba(5, 20, 15, 0.52), transparent 48%),
     linear-gradient(90deg, rgba(8, 29, 23, 0.2), rgba(8, 29, 23, 0.5) 55%, rgba(8, 29, 23, 0.82)),
-    linear-gradient(0deg, rgba(5, 20, 15, 0.62), transparent 52%);
+    linear-gradient(0deg, rgba(5, 20, 15, 0.54), transparent 52%);
 }
 
 .hero-copy {
@@ -373,6 +382,7 @@ button {
   width: min(730px, 54vw);
   margin-right: max(8vw, calc((100vw - 1440px) / 2));
   padding-top: clamp(170px, 23vh, 250px);
+  text-shadow: 0 2px 20px rgba(3, 14, 10, 0.72);
 }
 
 .eyebrow {
@@ -428,6 +438,29 @@ button {
   font-style: italic;
 }
 
+/* Premium metallic gold: intentionally limited to major display accents. */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .hero h1 em,
+  .page-hero h1 em,
+  .section-heading h2 em,
+  .brand-scene-copy h2 em,
+  .collection-dark h2 em,
+  .learning-paths h2 em,
+  .founders h2 em {
+    background: var(--gold-metal);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.button-gold,
+.opening-hours > a {
+  border-color: var(--gold-700);
+  background: var(--gold-metal);
+  box-shadow: inset 0 1px 0 rgba(255, 240, 189, 0.55), 0 12px 28px rgba(128, 99, 44, 0.18);
+}
+
 .hero-copy > p:not(.eyebrow) {
   max-width: 620px;
   margin: 26px 0 32px;
@@ -470,8 +503,10 @@ button {
 }
 
 .button-gold {
-  background: linear-gradient(135deg, var(--gold-500), #e4c77f);
+  border-color: var(--gold-700);
+  background: var(--gold-metal);
   color: var(--forest-950);
+  box-shadow: inset 0 1px 0 rgba(255, 240, 189, 0.55), 0 12px 28px rgba(128, 99, 44, 0.18);
 }
 
 .line-link {
@@ -1333,8 +1368,9 @@ button {
 
 .page-hero-shade {
   background:
-    linear-gradient(90deg, rgba(8, 29, 23, 0.15), rgba(8, 29, 23, 0.74)),
-    linear-gradient(0deg, rgba(6, 24, 18, 0.7), transparent 55%);
+    radial-gradient(ellipse at 78% 56%, rgba(5, 20, 15, 0.56), transparent 48%),
+    linear-gradient(90deg, rgba(8, 29, 23, 0.18), rgba(8, 29, 23, 0.82)),
+    linear-gradient(0deg, rgba(6, 24, 18, 0.78), transparent 58%);
 }
 
 .page-hero-copy {
@@ -1343,6 +1379,7 @@ button {
   right: max(8vw, calc((100vw - 1280px) / 2));
   bottom: clamp(80px, 11vh, 130px);
   width: min(830px, 66vw);
+  text-shadow: 0 2px 20px rgba(3, 14, 10, 0.7);
 }
 
 .page-hero h1 {
@@ -2222,7 +2259,13 @@ button {
 }
 
 .closing-cta {
+  --cinema-image-brightness: .78;
+  --cinema-image-scale: 1.08;
+  --cinema-image-shift: 6px;
+  --cinema-content-opacity: .72;
+  --cinema-content-shift: 34px;
   position: relative;
+  isolation: isolate;
   display: grid;
   place-items: center;
   min-height: 650px;
@@ -2241,15 +2284,38 @@ button {
 
 .closing-cta > img {
   object-fit: cover;
+  filter: brightness(var(--cinema-image-brightness)) saturate(1.08);
+  -webkit-filter: brightness(var(--cinema-image-brightness)) saturate(1.08);
+  transform: scale(var(--cinema-image-scale)) translateY(var(--cinema-image-shift));
+  will-change: transform, filter;
 }
 
 .closing-shade {
-  background: rgba(8, 35, 26, 0.73);
+  background:
+    linear-gradient(180deg, rgba(8, 29, 23, 0.88), rgba(8, 35, 26, 0.58) 42%, rgba(8, 29, 23, 0.94)),
+    radial-gradient(circle at 50% 45%, rgba(200, 169, 106, 0.14), transparent 47%);
+}
+
+.closing-cta::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  right: 50%;
+  bottom: 0;
+  width: min(560px, 66vw);
+  height: 1px;
+  background: var(--gold-metal);
+  box-shadow: 0 0 28px rgba(241, 216, 154, 0.42);
+  opacity: var(--cinema-progress, 0);
+  transform: translateX(50%) scaleX(var(--cinema-progress, 0));
 }
 
 .closing-content {
   position: relative;
   z-index: 2;
+  opacity: var(--cinema-content-opacity);
+  transform: translateY(var(--cinema-content-shift));
+  will-change: transform, opacity;
 }
 
 .closing-content .eyebrow::before {
@@ -2337,6 +2403,7 @@ button {
   width: 31%;
   background: linear-gradient(90deg, rgba(8, 29, 23, 0.94), rgba(8, 29, 23, 0.2));
   backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 .footer-lead {
@@ -2549,6 +2616,7 @@ button {
   font-size: 11px;
   transform: translateX(50%);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .product-copy > p {
@@ -3228,6 +3296,7 @@ button {
   .timeline article { grid-template-columns: 35px 1fr; }
   .timeline p { grid-column: 2; }
   .immersive-image { height: 680px; }
+  .immersive-image > img { transform: scale(1.9); transform-origin: center bottom; }
   .immersive-image > div { right: 28px; left: 28px; }
   .fact-list { grid-template-columns: 1fr; }
   .founder-grid img { height: 460px; }
@@ -3248,4 +3317,289 @@ button {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   .reveal { opacity: 1; transform: none; }
+}
+
+/*
+ * SADAFRONIA unified metallic-gold system.
+ *
+ * The transparent inline padding is intentional: italic Hebrew/Latin glyphs
+ * can overhang their text box on the visual right edge.  Without this room,
+ * background-clipped text appears to lose the edge of letters in RTL layouts.
+ */
+:is(
+  .hero h1 em,
+  .page-hero h1 em,
+  .section-heading h2 em,
+  .brand-scene-copy h2 em,
+  .collection-dark h2 em,
+  .learning-paths h2 em,
+  .founders h2 em,
+  .reserve-showcase h3 em,
+  .stats-band strong,
+  .ad-slide small,
+  .ad-rotator > a,
+  .world-tile > span,
+  .world-tile small,
+  .world-tile b,
+  .split-copy > span,
+  .image-seal span,
+  .product-copy small,
+  .product-copy strong,
+  .product-modal-copy small,
+  .product-modal-price,
+  .price-lockup strong,
+  .yayin-cover figcaption,
+  .yayin-copy h3,
+  .feature-pills span,
+  .article-image span,
+  .timeline b,
+  .experience-grid small,
+  .experience-grid button b,
+  .hours-card span,
+  .path-grid small,
+  .path-grid b,
+  .offering-grid article > span,
+  .issue-topics span,
+  .article-detail section small,
+  .expert-note span,
+  .founder-grid small,
+  .contact-aside > a:not(.button),
+  .payment-placeholder span,
+  .opening-hours > span,
+  .opening-hours strong,
+  .footer-brand span,
+  .footer-brand p,
+  .footer-grid h3,
+  .footer-grid a:hover,
+  .service-links small,
+  .service-matrix span,
+  .media-collage span,
+  .gallery-grid span,
+  .image-lightbox figcaption
+) {
+  color: var(--gold-400);
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  :is(
+    .hero h1 em,
+    .page-hero h1 em,
+    .section-heading h2 em,
+    .brand-scene-copy h2 em,
+    .collection-dark h2 em,
+    .learning-paths h2 em,
+    .founders h2 em,
+    .reserve-showcase h3 em,
+    .stats-band strong,
+    .ad-slide small,
+    .ad-rotator > a,
+    .world-tile > span,
+    .world-tile small,
+    .world-tile b,
+    .split-copy > span,
+    .image-seal span,
+    .product-copy small,
+    .product-copy strong,
+    .product-modal-copy small,
+    .product-modal-price,
+    .price-lockup strong,
+    .yayin-cover figcaption,
+    .yayin-copy h3,
+    .feature-pills span,
+    .article-image span,
+    .timeline b,
+    .experience-grid small,
+    .experience-grid button b,
+    .hours-card span,
+    .path-grid small,
+    .path-grid b,
+    .offering-grid article > span,
+    .issue-topics span,
+    .article-detail section small,
+    .expert-note span,
+    .founder-grid small,
+    .contact-aside > a:not(.button),
+    .payment-placeholder span,
+    .opening-hours > span,
+    .opening-hours strong,
+    .footer-brand span,
+    .footer-brand p,
+    .footer-grid h3,
+    .footer-grid a:hover,
+    .service-links small,
+    .service-matrix span,
+    .media-collage span,
+    .gallery-grid span,
+    .image-lightbox figcaption
+  ) {
+    background-image: var(--gold-metal);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  /* Extra room for italic display type, where glyph overhang is largest. */
+  :is(
+    .hero h1 em,
+    .page-hero h1 em,
+    .section-heading h2 em,
+    .brand-scene-copy h2 em,
+    .collection-dark h2 em,
+    .learning-paths h2 em,
+    .founders h2 em,
+    .reserve-showcase h3 em
+  ) {
+    display: inline-block;
+    max-width: 100%;
+    padding-inline: 0.2em;
+    margin-inline: -0.2em;
+    overflow: visible;
+  }
+}
+
+/*
+ * Product prices on the light home/shop surfaces keep the gold identity but
+ * use a calm solid tone, without the bright metallic highlight.  The winery
+ * page intentionally keeps the full metallic treatment against its dark
+ * background.
+ */
+:is(.home-page, .shop-page-body, .academy-page) :is(
+  .product-copy strong,
+  .product-modal-price,
+  .price-lockup strong
+) {
+  color: var(--gold-solid);
+  background-image: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: var(--gold-solid);
+  text-shadow: none;
+  filter: none;
+}
+
+/*
+ * On the light home/shop surfaces, restore the original dark-green product
+ * names.  Only the small English collection label above them stays gold.
+ */
+:is(.home-page, .shop-page-body) :is(
+  .product-copy h3,
+  .product-modal-copy h2
+) {
+  color: var(--ink);
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: var(--ink);
+  text-shadow: none;
+  filter: none;
+}
+
+/* Gold remains, but without the bright metallic streak on light cards. */
+:is(.home-page, .shop-page-body) :is(
+  .product-copy small,
+  .product-modal-copy small
+) {
+  color: var(--gold-solid);
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: var(--gold-solid);
+  text-shadow: none;
+  filter: none;
+}
+
+/* The footer label must stay readable over the vineyard photograph. */
+.opening-hours > span {
+  color: #d9c08a;
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: #d9c08a;
+  opacity: 1;
+  text-shadow: none;
+  filter: none;
+}
+
+/* Restore the two-tone professional-services statement from the approved design. */
+.home-page .services-depth .section-heading h2 {
+  color: var(--ink);
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: var(--ink);
+  text-shadow: none;
+  filter: none;
+}
+
+.home-page .services-depth .section-heading h2 em {
+  color: var(--gold-solid);
+  background-image: linear-gradient(110deg, #80632c 0%, #c8a96a 32%, #ddc486 52%, #c8a96a 72%, #80632c 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter: none;
+}
+
+/* Solid details use the middle tone of the same metallic palette. */
+.eyebrow::before,
+.page-progress span,
+.ad-dots button.is-active,
+.closing-cta::after {
+  background: var(--gold-metal);
+}
+
+:is(
+  .brand-mark,
+  .menu-button,
+  .social-rail a,
+  .ad-dots button,
+  .image-seal,
+  .feature-pills span,
+  .carousel-arrow,
+  .product-image::after,
+  .reserve-showcase,
+  .hours-card,
+  .path-grid article,
+  .offering-grid article,
+  .issue-topics span,
+  .expert-note,
+  .payment-placeholder,
+  .footer-brand img,
+  .image-lightbox,
+  .gallery-video-cta
+) {
+  border-color: var(--gold-solid);
+}
+
+:is(
+  .social-rail,
+  .site-footer,
+  .contact-aside,
+  .hours-card,
+  .service-links,
+  .service-matrix
+) svg {
+  color: var(--gold-solid);
+  stroke: var(--gold-solid);
+}
+
+@media (max-width: 820px) {
+  .hero-shade {
+    background:
+      radial-gradient(ellipse at 72% 48%, rgba(5, 20, 15, 0.5), transparent 54%),
+      linear-gradient(0deg, rgba(5, 20, 15, 0.84), rgba(8, 29, 23, 0.18) 72%);
+  }
+
+  .page-hero-shade {
+    background:
+      radial-gradient(ellipse at 70% 72%, rgba(5, 20, 15, 0.58), transparent 58%),
+      linear-gradient(0deg, rgba(5, 20, 15, 0.88), rgba(8, 29, 23, 0.14) 70%);
+  }
 }
