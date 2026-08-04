@@ -32,8 +32,8 @@
         const progressValue = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
         section.style.setProperty("--cinema-progress", progressValue.toFixed(3));
         section.style.setProperty("--cinema-image-brightness", (.78 + progressValue * .16).toFixed(3));
-        section.style.setProperty("--cinema-image-scale", (1.08 - progressValue * .035).toFixed(4));
-        section.style.setProperty("--cinema-image-shift", `${((.5 - progressValue) * 12).toFixed(2)}px`);
+        section.style.setProperty("--cinema-image-scale", (1.015 - progressValue * .015).toFixed(4));
+        section.style.setProperty("--cinema-image-shift", `${((.5 - progressValue) * 4).toFixed(2)}px`);
         section.style.setProperty("--cinema-content-opacity", (.72 + progressValue * .28).toFixed(3));
         section.style.setProperty("--cinema-content-shift", `${((1 - progressValue) * 34).toFixed(2)}px`);
       });
@@ -49,8 +49,8 @@
     cinematicSections.forEach((section) => {
       section.style.setProperty("--cinema-progress", "1");
       section.style.setProperty("--cinema-image-brightness", ".94");
-      section.style.setProperty("--cinema-image-scale", "1.045");
-      section.style.setProperty("--cinema-image-shift", "-6px");
+      section.style.setProperty("--cinema-image-scale", "1");
+      section.style.setProperty("--cinema-image-shift", "0px");
       section.style.setProperty("--cinema-content-opacity", "1");
       section.style.setProperty("--cinema-content-shift", "0px");
     });
@@ -344,6 +344,39 @@
     lightbox?.setAttribute("aria-hidden", "true");
     body.classList.remove("modal-open");
   };
+  const galleryGrid = document.querySelector(".gallery-grid");
+  if (galleryGrid) {
+    galleryGrid.querySelector("[data-lightbox-image='assets/images/uploads/reserve-reference.webp']")?.remove();
+
+    [
+      {
+        image: "assets/images/uploads/wine-house-hospitality.webp",
+        title: "אירוח מוקפד בבית היין",
+        alt: "אירוח בבית היין",
+        label: "אירוח בבית היין",
+      },
+      {
+        image: "assets/images/new/branded-cellar.webp",
+        title: "מרתף היין של SADAFRONIA",
+        alt: "מרתף יין ממותג",
+        label: "המרתף שלנו",
+      },
+      {
+        image: "assets/images/uploads/waldorf-astoria.webp",
+        title: "אירוח יין באווירה אלגנטית",
+        alt: "אירוח יין אלגנטי",
+        label: "יין ואירוח",
+      },
+    ].forEach(({ image, title, alt, label }) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.dataset.lightboxImage = image;
+      button.dataset.lightboxTitle = title;
+      button.innerHTML = `<img src="${image}" alt="${alt}" loading="lazy" decoding="async" /><span>${label}</span>`;
+      galleryGrid.append(button);
+    });
+  }
+
   document.querySelectorAll("[data-lightbox-image]").forEach((button) => {
     button.addEventListener("click", () => {
       if (lightboxImage) {
