@@ -20,6 +20,29 @@
   updateScroll();
   window.addEventListener("scroll", updateScroll, { passive: true });
 
+  const scrollZoomSections = [...document.querySelectorAll("[data-scroll-zoom]")];
+  if (scrollZoomSections.length && !reduceMotion && window.matchMedia("(min-width: 821px)").matches) {
+    let scrollZoomFrame = 0;
+    const updateScrollZoom = () => {
+      scrollZoomFrame = 0;
+      scrollZoomSections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const viewportCenter = window.innerHeight / 2;
+        const sectionCenter = rect.top + rect.height / 2;
+        const reach = (window.innerHeight + rect.height) / 2;
+        const proximity = Math.max(0, 1 - Math.abs(sectionCenter - viewportCenter) / reach);
+        section.style.setProperty("--scroll-zoom", (1 + proximity * 0.075).toFixed(4));
+      });
+    };
+    const requestScrollZoom = () => {
+      if (scrollZoomFrame) return;
+      scrollZoomFrame = window.requestAnimationFrame(updateScrollZoom);
+    };
+    updateScrollZoom();
+    window.addEventListener("scroll", requestScrollZoom, { passive: true });
+    window.addEventListener("resize", requestScrollZoom, { passive: true });
+  }
+
   const cinematicSections = [...document.querySelectorAll(".closing-cta")];
   if (cinematicSections.length && !reduceMotion) {
     let cinematicFrame = 0;
@@ -383,7 +406,18 @@
         lightboxImage.src = button.dataset.lightboxImage || "";
         lightboxImage.alt = button.dataset.lightboxTitle || "";
       }
-      if (lightboxCaption) lightboxCaption.textContent = button.dataset.lightboxTitle || "";
+      if (lightboxCaption) {
+        lightboxCaption.replaceChildren();
+        const title = document.createElement("strong");
+        title.textContent = button.dataset.lightboxTitle || "";
+        lightboxCaption.append(title);
+        if (button.dataset.lightboxCopy) {
+          const copy = document.createElement("p");
+          copy.textContent = button.dataset.lightboxCopy;
+          lightboxCaption.append(copy);
+        }
+      }
+      lightbox?.classList.toggle("has-copy", Boolean(button.dataset.lightboxCopy));
       lightbox?.classList.add("is-open");
       lightbox?.setAttribute("aria-hidden", "false");
       body.classList.add("modal-open");
