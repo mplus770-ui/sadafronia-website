@@ -243,6 +243,80 @@
     });
   });
 
+  document.querySelectorAll(".product-marquee").forEach((marquee) => {
+    const firstGroup = marquee.querySelector(".product-marquee-group");
+    if (!firstGroup) return;
+
+    const speed = 34;
+    let paused = reduceMotion;
+    let dragging = false;
+    let dragged = false;
+    let pointerStart = 0;
+    let scrollStart = 0;
+    let previousTime = performance.now();
+
+    const wrapPosition = () => {
+      const groupWidth = firstGroup.getBoundingClientRect().width;
+      if (!groupWidth) return;
+      while (marquee.scrollLeft >= groupWidth) marquee.scrollLeft -= groupWidth;
+      while (marquee.scrollLeft < 0) marquee.scrollLeft += groupWidth;
+    };
+
+    const animate = (time) => {
+      const elapsed = Math.min(time - previousTime, 50);
+      previousTime = time;
+      if (!paused && !dragging && document.visibilityState === "visible") {
+        marquee.scrollLeft += speed * elapsed / 1000;
+        wrapPosition();
+      }
+      requestAnimationFrame(animate);
+    };
+
+    marquee.addEventListener("mouseenter", () => { paused = true; });
+    marquee.addEventListener("mouseleave", () => { if (!reduceMotion) paused = false; });
+    marquee.addEventListener("focusin", () => { paused = true; });
+    marquee.addEventListener("focusout", () => { if (!reduceMotion) paused = false; });
+    marquee.addEventListener("touchstart", () => { paused = true; }, { passive: true });
+    marquee.addEventListener("touchend", () => {
+      wrapPosition();
+      if (!reduceMotion) window.setTimeout(() => { paused = false; }, 900);
+    }, { passive: true });
+    marquee.addEventListener("scroll", wrapPosition, { passive: true });
+
+    marquee.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "touch") return;
+      dragging = true;
+      dragged = false;
+      pointerStart = event.clientX;
+      scrollStart = marquee.scrollLeft;
+      marquee.classList.add("is-dragging");
+      marquee.setPointerCapture(event.pointerId);
+    });
+    marquee.addEventListener("pointermove", (event) => {
+      if (!dragging) return;
+      const distance = event.clientX - pointerStart;
+      if (Math.abs(distance) > 5) dragged = true;
+      marquee.scrollLeft = scrollStart - distance;
+    });
+    const endDrag = (event) => {
+      if (!dragging) return;
+      dragging = false;
+      marquee.classList.remove("is-dragging");
+      if (marquee.hasPointerCapture(event.pointerId)) marquee.releasePointerCapture(event.pointerId);
+      wrapPosition();
+    };
+    marquee.addEventListener("pointerup", endDrag);
+    marquee.addEventListener("pointercancel", endDrag);
+    marquee.addEventListener("click", (event) => {
+      if (!dragged) return;
+      event.preventDefault();
+      event.stopPropagation();
+      dragged = false;
+    }, true);
+
+    requestAnimationFrame(animate);
+  });
+
   const counters = [...document.querySelectorAll("[data-count]")];
   if (counters.length) {
     const countObserver = new IntersectionObserver(
