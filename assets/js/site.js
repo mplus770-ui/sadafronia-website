@@ -248,7 +248,10 @@
     if (!firstGroup) return;
 
     const speed = 34;
-    let paused = reduceMotion;
+    // This showcase is an intentional, user-requested product motion. Keep it
+    // running independently of the desktop OS motion preference; interaction
+    // pauses it only for the duration of an actual drag.
+    let paused = false;
     let dragging = false;
     let dragged = false;
     let dragAxis = null;
@@ -274,8 +277,6 @@
       requestAnimationFrame(animate);
     };
 
-    marquee.addEventListener("focusin", () => { paused = true; });
-    marquee.addEventListener("focusout", () => { if (!reduceMotion) paused = false; });
     marquee.addEventListener("scroll", wrapPosition, { passive: true });
 
     marquee.addEventListener("pointerdown", (event) => {
@@ -302,7 +303,7 @@
 
       if (dragAxis === "y") {
         dragging = false;
-        if (!reduceMotion) paused = false;
+        paused = false;
         return;
       }
       if (dragAxis !== "x") return;
@@ -316,7 +317,7 @@
       marquee.classList.remove("is-dragging");
       if (marquee.hasPointerCapture(event.pointerId)) marquee.releasePointerCapture(event.pointerId);
       wrapPosition();
-      if (!reduceMotion) window.setTimeout(() => { paused = false; }, event.pointerType === "touch" ? 700 : 250);
+      window.setTimeout(() => { paused = false; }, event.pointerType === "touch" ? 700 : 250);
     };
     marquee.addEventListener("pointerup", endDrag);
     marquee.addEventListener("pointercancel", endDrag);
