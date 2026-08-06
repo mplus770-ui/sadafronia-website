@@ -3325,6 +3325,13 @@ button {
     min-height: calc(72px + env(safe-area-inset-top));
     padding: env(safe-area-inset-top) max(17px, env(safe-area-inset-right)) 0 max(17px, env(safe-area-inset-left));
   }
+  .contact-page-body .site-header.is-scrolled {
+    background: rgba(8, 29, 23, 0.98);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+  }
   .brand-copy strong { font-size: 14px; }
   .brand-copy small { font-size: 8px; }
   .brand-mark { width: 38px; }

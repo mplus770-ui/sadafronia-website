@@ -259,6 +259,7 @@
     let pointerStartY = 0;
     let scrollStart = 0;
     let previousTime = performance.now();
+    let autoplayRemainder = 0;
 
     const wrapPosition = () => {
       const groupWidth = firstGroup.getBoundingClientRect().width;
@@ -271,8 +272,15 @@
       const elapsed = Math.min(time - previousTime, 50);
       previousTime = time;
       if (!paused && !dragging && document.visibilityState === "visible") {
-        marquee.scrollLeft += speed * elapsed / 1000;
-        wrapPosition();
+        // Some desktop engines round scrollLeft assignments to whole pixels.
+        // Preserve sub-pixel progress between frames so autoplay cannot stall.
+        autoplayRemainder += speed * elapsed / 1000;
+        const wholePixels = Math.trunc(autoplayRemainder);
+        if (wholePixels > 0) {
+          marquee.scrollLeft += wholePixels;
+          autoplayRemainder -= wholePixels;
+          wrapPosition();
+        }
       }
       requestAnimationFrame(animate);
     };
