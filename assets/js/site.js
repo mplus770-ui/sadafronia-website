@@ -251,7 +251,9 @@
     let paused = reduceMotion;
     let dragging = false;
     let dragged = false;
+    let dragAxis = null;
     let pointerStart = 0;
+    let pointerStartY = 0;
     let scrollStart = 0;
     let previousTime = performance.now();
 
@@ -272,31 +274,41 @@
       requestAnimationFrame(animate);
     };
 
-    marquee.addEventListener("mouseenter", () => { paused = true; });
-    marquee.addEventListener("mouseleave", () => { if (!reduceMotion) paused = false; });
     marquee.addEventListener("focusin", () => { paused = true; });
     marquee.addEventListener("focusout", () => { if (!reduceMotion) paused = false; });
-    marquee.addEventListener("touchstart", () => { paused = true; }, { passive: true });
-    marquee.addEventListener("touchend", () => {
-      wrapPosition();
-      if (!reduceMotion) window.setTimeout(() => { paused = false; }, 900);
-    }, { passive: true });
     marquee.addEventListener("scroll", wrapPosition, { passive: true });
 
     marquee.addEventListener("pointerdown", (event) => {
-      if (event.pointerType === "touch") return;
       dragging = true;
       dragged = false;
+      dragAxis = null;
       pointerStart = event.clientX;
+      pointerStartY = event.clientY;
       scrollStart = marquee.scrollLeft;
-      marquee.classList.add("is-dragging");
-      marquee.setPointerCapture(event.pointerId);
+      paused = true;
     });
     marquee.addEventListener("pointermove", (event) => {
       if (!dragging) return;
-      const distance = event.clientX - pointerStart;
-      if (Math.abs(distance) > 5) dragged = true;
-      marquee.scrollLeft = scrollStart - distance;
+      const distanceX = event.clientX - pointerStart;
+      const distanceY = event.clientY - pointerStartY;
+
+      if (!dragAxis && Math.max(Math.abs(distanceX), Math.abs(distanceY)) >= 7) {
+        dragAxis = Math.abs(distanceX) > Math.abs(distanceY) ? "x" : "y";
+        if (dragAxis === "x") {
+          marquee.classList.add("is-dragging");
+          marquee.setPointerCapture(event.pointerId);
+        }
+      }
+
+      if (dragAxis === "y") {
+        dragging = false;
+        if (!reduceMotion) paused = false;
+        return;
+      }
+      if (dragAxis !== "x") return;
+
+      dragged = true;
+      marquee.scrollLeft = scrollStart - distanceX;
     });
     const endDrag = (event) => {
       if (!dragging) return;
@@ -304,6 +316,7 @@
       marquee.classList.remove("is-dragging");
       if (marquee.hasPointerCapture(event.pointerId)) marquee.releasePointerCapture(event.pointerId);
       wrapPosition();
+      if (!reduceMotion) window.setTimeout(() => { paused = false; }, event.pointerType === "touch" ? 700 : 250);
     };
     marquee.addEventListener("pointerup", endDrag);
     marquee.addEventListener("pointercancel", endDrag);
@@ -315,6 +328,12 @@
     }, true);
 
     requestAnimationFrame(animate);
+
+    const hint = document.createElement("div");
+    hint.className = "marquee-swipe-hint";
+    hint.setAttribute("aria-hidden", "true");
+    hint.innerHTML = '<span>‹</span><small>החליקו לצדדים</small><span>›</span>';
+    marquee.insertAdjacentElement("afterend", hint);
   });
 
   const counters = [...document.querySelectorAll("[data-count]")];

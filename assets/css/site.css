@@ -2579,7 +2579,7 @@ button {
   overscroll-behavior-inline: contain;
   scroll-behavior: auto;
   scrollbar-width: none;
-  touch-action: pan-x;
+  touch-action: pan-y pinch-zoom;
   cursor: grab;
   padding: 12px 0 35px;
   mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
@@ -2592,6 +2592,32 @@ button {
 .product-marquee.is-dragging {
   cursor: grabbing;
   user-select: none;
+}
+
+.marquee-swipe-hint {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin: -21px auto 24px;
+  color: rgba(234, 213, 168, 0.72);
+  pointer-events: none;
+}
+
+.marquee-swipe-hint small {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.marquee-swipe-hint span {
+  font-size: 20px;
+  line-height: 1;
+  animation: swipeHint 1.8s ease-in-out infinite;
+}
+
+.marquee-swipe-hint span:last-child {
+  animation-delay: -0.9s;
 }
 
 .product-marquee-track {
@@ -3265,6 +3291,11 @@ button {
   65%, 100% { transform: translateX(120%); }
 }
 
+@keyframes swipeHint {
+  0%, 100% { opacity: 0.45; transform: translateX(0); }
+  50% { opacity: 1; transform: translateX(2px); }
+}
+
 @media (max-width: 1180px) {
   :root { --shell: min(100% - 46px, 1100px); }
   .desktop-nav { display: none; }
@@ -3314,6 +3345,7 @@ button {
   .carousel-track { grid-auto-columns: 82%; }
   .product-marquee { width: 100vw; margin-right: calc((100vw - var(--shell)) / -2); }
   .product-marquee .product-card { width: 285px; }
+  .marquee-swipe-hint { display: flex; }
   .product-image { height: 350px; }
   .product-copy { padding: 22px; }
   .product-copy > p { min-height: 0; }
