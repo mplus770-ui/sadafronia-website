@@ -3315,7 +3315,16 @@ button {
   :root { --shell: calc(100vw - 34px); }
   html { scroll-padding-top: 72px; }
   body { font-size: 16px; padding-bottom: env(safe-area-inset-bottom); }
-  .site-header { height: calc(72px + env(safe-area-inset-top)); padding: env(safe-area-inset-top) max(17px, env(safe-area-inset-right)) 0 max(17px, env(safe-area-inset-left)); }
+  .site-header,
+  .site-header.is-scrolled {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: calc(72px + env(safe-area-inset-top));
+    min-height: calc(72px + env(safe-area-inset-top));
+    padding: env(safe-area-inset-top) max(17px, env(safe-area-inset-right)) 0 max(17px, env(safe-area-inset-left));
+  }
   .brand-copy strong { font-size: 14px; }
   .brand-copy small { font-size: 8px; }
   .brand-mark { width: 38px; }
