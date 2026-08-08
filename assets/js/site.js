@@ -248,6 +248,7 @@
     if (!firstGroup) return;
 
     const speed = 34;
+    const useFractionalAutoplay = window.matchMedia("(hover: none), (pointer: coarse)").matches;
     // This showcase is an intentional, user-requested product motion. Keep it
     // running independently of the desktop OS motion preference; interaction
     // pauses it only for the duration of an actual drag.
@@ -260,9 +261,18 @@
     let scrollStart = 0;
     let previousTime = performance.now();
     let autoplayRemainder = 0;
+    let groupWidth = firstGroup.getBoundingClientRect().width;
+
+    const updateGroupWidth = () => {
+      groupWidth = firstGroup.getBoundingClientRect().width;
+    };
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(updateGroupWidth).observe(firstGroup);
+    } else {
+      window.addEventListener("resize", updateGroupWidth, { passive: true });
+    }
 
     const wrapPosition = () => {
-      const groupWidth = firstGroup.getBoundingClientRect().width;
       if (!groupWidth) return;
       while (marquee.scrollLeft >= groupWidth) marquee.scrollLeft -= groupWidth;
       while (marquee.scrollLeft < 0) marquee.scrollLeft += groupWidth;
@@ -272,20 +282,27 @@
       const elapsed = Math.min(time - previousTime, 50);
       previousTime = time;
       if (!paused && !dragging && document.visibilityState === "visible") {
-        // Some desktop engines round scrollLeft assignments to whole pixels.
-        // Preserve sub-pixel progress between frames so autoplay cannot stall.
-        autoplayRemainder += speed * elapsed / 1000;
-        const wholePixels = Math.trunc(autoplayRemainder);
-        if (wholePixels > 0) {
-          marquee.scrollLeft += wholePixels;
-          autoplayRemainder -= wholePixels;
+        const distance = speed * elapsed / 1000;
+        if (useFractionalAutoplay) {
+          // Mobile engines retain fractional scroll offsets. Updating with the
+          // full frame distance avoids the visible one-pixel stepping that can
+          // occur during slow autoplay, without changing touch dragging.
+          marquee.scrollLeft += distance;
           wrapPosition();
+        } else {
+          // Some desktop engines round scrollLeft assignments to whole pixels.
+          // Preserve sub-pixel progress between frames so autoplay cannot stall.
+          autoplayRemainder += distance;
+          const wholePixels = Math.trunc(autoplayRemainder);
+          if (wholePixels > 0) {
+            marquee.scrollLeft += wholePixels;
+            autoplayRemainder -= wholePixels;
+            wrapPosition();
+          }
         }
       }
       requestAnimationFrame(animate);
     };
-
-    marquee.addEventListener("scroll", wrapPosition, { passive: true });
 
     marquee.addEventListener("pointerdown", (event) => {
       dragging = true;
@@ -341,7 +358,7 @@
     const hint = document.createElement("div");
     hint.className = "marquee-swipe-hint";
     hint.setAttribute("aria-hidden", "true");
-    hint.innerHTML = '<span>‹</span><small>החליקו לצדדים</small><span>›</span>';
+    hint.innerHTML = '<span>‹</span><small>ניתן להזיז לשני הצדדים</small><span>›</span>';
     marquee.insertAdjacentElement("afterend", hint);
   });
 

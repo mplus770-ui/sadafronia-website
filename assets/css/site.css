@@ -2595,19 +2595,27 @@ button {
 }
 
 .marquee-swipe-hint {
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
-  margin: -21px auto 24px;
-  color: rgba(234, 213, 168, 0.72);
+  width: max-content;
+  gap: 11px;
+  margin: -17px auto 24px;
+  padding: 7px 15px;
+  color: rgba(255, 253, 248, 0.94);
+  background: rgba(8, 29, 23, 0.72);
+  border: 1px solid rgba(255, 253, 248, 0.42);
+  border-radius: 999px;
+  box-shadow: 0 7px 24px rgba(3, 17, 13, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   pointer-events: none;
 }
 
 .marquee-swipe-hint small {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.035em;
 }
 
 .marquee-swipe-hint span {
@@ -3329,8 +3337,18 @@ button {
     background: rgba(8, 29, 23, 0.98);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
+    transform: none;
+    backface-visibility: visible;
+  }
+  .contact-page-body {
+    overflow-x: clip;
+  }
+  .contact-page-body .site-header,
+  .contact-page-body .site-header.is-scrolled {
+    position: fixed;
+    z-index: 1000;
+    inset: 0 0 auto;
+    isolation: isolate;
   }
   .brand-copy strong { font-size: 14px; }
   .brand-copy small { font-size: 8px; }
@@ -3361,7 +3379,17 @@ button {
   .carousel-track { grid-auto-columns: 82%; }
   .product-marquee { width: 100vw; margin-right: calc((100vw - var(--shell)) / -2); }
   .product-marquee .product-card { width: 285px; }
-  .marquee-swipe-hint { display: flex; }
+  .marquee-swipe-hint {
+    gap: 13px;
+    margin-top: -15px;
+    padding: 9px 17px;
+    color: #fffdf8;
+    background: rgba(8, 29, 23, 0.9);
+    border-color: rgba(255, 253, 248, 0.72);
+    box-shadow: 0 9px 28px rgba(3, 17, 13, 0.32);
+  }
+  .marquee-swipe-hint small { font-size: 12px; }
+  .marquee-swipe-hint span { font-size: 23px; }
   .product-image { height: 350px; }
   .product-copy { padding: 22px; }
   .product-copy > p { min-height: 0; }
@@ -3394,6 +3422,7 @@ button {
   .page-hero { min-height: 76svh; }
   .page-hero > .page-hero-media img { object-position: center 70%; }
   .page-hero-copy { right: 24px; bottom: 70px; width: calc(100vw - 48px); }
+  .magazine-page-body .page-hero-copy { bottom: 104px; }
   .page-hero h1 { font-size: clamp(51px, 14vw, 78px); }
   .shop-page .shop-grid .product-card:first-child .product-image { height: 390px; }
   .sticky-title { position: static; }
