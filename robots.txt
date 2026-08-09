@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /checkout.html
 
 Sitemap: https://sadafronia.co.il/sitemap.xml
