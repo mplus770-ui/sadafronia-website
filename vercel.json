@@ -1,24 +1,16 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/קורסים",
       "destination": "/academy.html",
-      "permanent": true
-    },
-    {
-      "source": "/קורסים/",
-      "destination": "/academy.html",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/ייעוץ-וליווי-ליקבים",
       "destination": "/consulting.html",
-      "permanent": true
-    },
-    {
-      "source": "/ייעוץ-וליווי-ליקבים/",
-      "destination": "/consulting.html",
-      "permanent": true
+      "statusCode": 301
     }
   ]
 }
