@@ -1,0 +1,24 @@
+{
+  "redirects": [
+    {
+      "source": "/קורסים",
+      "destination": "/academy.html",
+      "permanent": true
+    },
+    {
+      "source": "/קורסים/",
+      "destination": "/academy.html",
+      "permanent": true
+    },
+    {
+      "source": "/ייעוץ-וליווי-ליקבים",
+      "destination": "/consulting.html",
+      "permanent": true
+    },
+    {
+      "source": "/ייעוץ-וליווי-ליקבים/",
+      "destination": "/consulting.html",
+      "permanent": true
+    }
+  ]
+}
